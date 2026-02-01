@@ -1,0 +1,26 @@
+name: Notificación Hola Mundo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Ejecutar Hola Mundo
+        run: node index.js
+
+      - name: Enviar notificación a ntfy
+        run: |
+          curl -X POST \
+          -H "Title: GitHub Actions 🚀" \
+          -H "Priority: 3" \
+          -H "Tags: devops,github" \
+          -d "Se subió código a la rama main del repositorio." \
+          https://ntfy.sh/devops-itla
